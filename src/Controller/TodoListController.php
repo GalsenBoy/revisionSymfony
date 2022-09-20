@@ -58,7 +58,7 @@ class TodoListController extends AbstractController
             } else {
                 $todo[$cle] = $content;
                 $session->set('todo', $todo);
-                $this->addFlash('success', message: " La liste a été ajouté avec succès");
+                $this->addFlash('success', message: " La liste a été mis à jour avec succès");
             }
         } else {
             $this->addFlash('info', message: " La liste n'existe pas encore ");
@@ -77,7 +77,7 @@ class TodoListController extends AbstractController
             } else {
                 unset($todo[$cle]);
                 $session->set('todo', $todo);
-                $this->addFlash('success', message: " La liste a été ajouté avec succès");
+                $this->addFlash('success', message: " La liste a été supprimé avec succès");
             }
         } else {
             $this->addFlash('info', message: " La liste n'existe pas encore ");
