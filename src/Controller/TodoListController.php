@@ -22,7 +22,6 @@ class TodoListController extends AbstractController
             ];
             $session->set('todo', $todo);
         }
-
         return $this->render('todo_list/todo.html.twig');
     }
 
