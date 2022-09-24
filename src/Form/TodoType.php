@@ -2,25 +2,34 @@
 
 namespace App\Form;
 
-use App\Entity\TodoList;
+use App\Entity\Todo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TodoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('key')
-            ->add('content')
-        ;
+            ->add('titre', TextType::class, [
+                'label' => 'Titre'
+            ])
+            ->add('contenu', TextType::class, [
+                'label' => 'Chose à faire'
+            ])
+
+            ->add('envoyer', SubmitType::class, [
+                'label' => 'Ajouter'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TodoList::class,
+            'data_class' => Todo::class,
         ]);
     }
 }
