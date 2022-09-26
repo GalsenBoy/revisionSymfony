@@ -8,8 +8,10 @@
 		{% for todos in todos %}
 			<p>{{todos.titre}}
 				:
-				{{todos.contenu }}</p>
-		{% endfor %}
-	</div>
+				{{todos.contenu }}
+				<a href="{{ path('update_todo', {'todoId' : todos.id} ) }} ">Modifier<a/>
+				</p>
+			{% endfor %}
+		</div>
 
-	{{form(dataForm)}}{% endblock %}
+		{{form(dataForm)}}{% endblock %}

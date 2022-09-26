@@ -20,18 +20,35 @@ class TodoController extends AbstractController
         $em = $doctrine->getManager();
         $todos = $doctrine->getRepository(Todo::class)->findBy([]);
         $todo = new Todo();
-        $todoForm = $this->createForm(TodoType::class);
+        $todoForm = $this->createForm(TodoType::class, $todo);
         $todoForm->handleRequest($request);
 
         if ($todoForm->isSubmitted() && $todoForm->isValid()) {
-            // $todo->setTitre('vendredi');
-            // $todo->setContenu('Jummah');
             $em->persist($todo);
             $em->flush();
-            $this->redirectToRoute('create_todo');
+            return $this->redirectToRoute('create_todo');
         }
+        return $this->render('todo/index.html.twig', [
+            'dataForm' => $todoForm->createView(),
+            'formName' => 'Mon todo liste',
+            'todos' => $todos,
 
+        ]);
+    }
 
+    #[Route('/update/{todoId}', name: 'update_todo')]
+    public function updateTodo(ManagerRegistry $doctrine, Request $request, $todoId): Response
+    {
+        $em = $doctrine->getManager();
+        $todos = $doctrine->getRepository(Todo::class)->find($todoId);
+        $todoForm = $this->createForm(TodoType::class, $todos);
+        $todoForm->handleRequest($request);
+
+        if ($todoForm->isSubmitted() && $todoForm->isValid()) {
+            $em->persist($todos);
+            $em->flush();
+            return $this->redirectToRoute('create_todo');
+        }
         return $this->render('todo/index.html.twig', [
             'dataForm' => $todoForm->createView(),
             'formName' => 'Mon todo liste',

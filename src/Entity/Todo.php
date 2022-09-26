@@ -19,6 +19,7 @@ class Todo
     #[ORM\Column(length: 255)]
     private ?string $contenu = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
